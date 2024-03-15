@@ -40,4 +40,5 @@ Find both `server.js` and `client.js` in root folder.
 
  - A more organized structure for orderbooks which would include closed orders (instead of just filtering them out of the current orderbook)
  - A more scalable way (O(log n)) of inserting orders into a sorted structured, instead of sorting them for every new order.
- - Error handling
+ - I'd fix a bug where sometimes qtyOrdered is being generated as `undefined`. I worked around this with a `?? 1` in order creation
+ - General error handling
