@@ -1,0 +1,18 @@
+{
+    "name": "simple-exchange",
+    "version": "0.0.1",
+    "scripts": {
+      "start:client": "node client.js",
+      "start:server": "node server.js",
+      "test": "jest"
+    },
+    "author": "Eduardo Elarrat",
+    "dependencies": {
+      "grenache-nodejs-link": "^1.0.0",
+      "grenache-nodejs-ws": "^0.7.10"
+    },
+    "devDependencies": {
+      "jest": "^29.7.0"
+    }
+  }
+  
