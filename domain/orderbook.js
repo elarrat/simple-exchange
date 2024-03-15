@@ -26,6 +26,8 @@ module.exports=class Orderbook {
   
       for (let i = 0; i < openOrders.length; i += 1) {
         const openOrder = openOrders[i];
+
+        if (openOrder.symbol !== newOrder.symbol) continue;
   
         const orderQty = openOrder.qtyOrdered - openOrder.qtyMatched;
   
@@ -79,18 +81,14 @@ module.exports=class Orderbook {
         if (newOrder.type === 'BUY') {
           orderBook = this.sellBook;
           this.sellBook = this.sellBook.filter((openOrder) =>
-          openOrder.qtyMatched < openOrder.qtyOrdered
-          && openOrder.symbol == newOrder.symbol
-          && openOrder.price <= newOrder.price
-          && !openOrder.orderRemainer
+            openOrder.qtyMatched < openOrder.qtyOrdered // Cleaning completed orders
+            && openOrder.price <= newOrder.price && !openOrder.orderRemainer
           );
         } else {
           orderBook = this.buyBook;
           this.buyBook = this.buyBook.filter((openOrder) =>
-          openOrder.qtyMatched < openOrder.qtyOrdered
-          && openOrder.symbol == newOrder.symbol
-          && openOrder.price >= newOrder.price
-          && !openOrder.orderRemainer
+            openOrder.qtyMatched < openOrder.qtyOrdered // Cleaning completed orders
+            && openOrder.price >= newOrder.price && !openOrder.orderRemainer
           );
         }
         
