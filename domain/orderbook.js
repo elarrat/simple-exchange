@@ -47,6 +47,7 @@ module.exports=class Orderbook {
           const remainerQty = newOrder.qtyOrdered - newOrder.qtyMatched;
           remainerOrder = { 
             ...newOrder,
+            id: Date.now(),
             qtyOrdered: remainerQty,
             qtyMatched: 0
           };
