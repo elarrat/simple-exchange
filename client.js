@@ -43,7 +43,7 @@ class Client {
       symbol,
       type, 
       price, 
-      qtyOrdered: qty ?? 1,
+      qtyOrdered: qty,
       qtyMatched: 0,
       remainerOrder: null,
     }; 
@@ -58,13 +58,11 @@ class Client {
   }
 }
 
-// Bootstrap client and trigger random orders
+// Bootstrap client and trigger random order
 const client = new Client('http://127.0.0.1:30001');
-setInterval(() => {
-  const symbol = Math.random() > 0.5 ? "BTC" : "ETH";
-  const type = Math.random() > 0.5 ? "BUY" : "SELL";
-  const price = (Math.random() * 10).toFixed(2);
-  const qty = Math.ceil(Math.random() * 10);
+const symbol = Math.random() > 0.5 ? "BTC" : "ETH";
+const type = Math.random() > 0.5 ? "BUY" : "SELL";
+const price = (Math.random() * 10).toFixed(2);
+const qty = Math.ceil(Math.random() * 10);
 
-  client.createOrder(symbol, type, price, qty, null);
-}, 5000);
+client.createOrder(symbol, type, price, qty, null);
