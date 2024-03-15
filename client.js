@@ -28,7 +28,7 @@ class Client {
       const newOrder = JSON.parse(payload);
       // 5. Add order to local orderbook and match orders
       const remainerOrder = await this.orderbook.createOrder(newOrder);
-      if (remainerOrder) this.createOrder(remainerOrder.symbol, remainerOrder.type, remainerOrder.qty, remainerOrder.price);
+      if (remainerOrder) this.createOrder(remainerOrder.symbol, remainerOrder.type, remainerOrder.price, remainerOrder.qty, remainerOrder.id);
       console.log(`client: ${newOrder.clientId}, order: ${JSON.stringify(newOrder)} - created!`);
     })
 
@@ -36,14 +36,14 @@ class Client {
   }
 
   // 1. Create order and send to exchange-rpc
-  createOrder(symbol, type, price, qty) {
+  createOrder(symbol, type, price, qty, orderId) {
     const order = {
       clientId: this.id,
-      id: Date.now(),
+      id: orderId ?? Date.now(),
       symbol,
       type, 
       price, 
-      qtyOrdered: qty,
+      qtyOrdered: qty ?? 1,
       qtyMatched: 0,
       remainerOrder: null,
     }; 
@@ -64,7 +64,7 @@ setInterval(() => {
   const symbol = Math.random() > 0.5 ? "BTC" : "ETH";
   const type = Math.random() > 0.5 ? "BUY" : "SELL";
   const price = (Math.random() * 10).toFixed(2);
-  const qty = Math.ceil(Math.random() * 10)
+  const qty = Math.ceil(Math.random() * 10);
 
-  client.createOrder(symbol, type, price, qty);
+  client.createOrder(symbol, type, price, qty, null);
 }, 5000);
